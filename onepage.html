@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>คู่มือฉบับย่อ ระบบสารสนเทศ ร.ร.บ้านทุ่งใหญ่</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap">
+<style>
+@page { size: A4; margin: 0; }
+:root{
+  --ink:#10283b; --muted:#56697a; --line:#d3dde7; --soft:#f1f5f9;
+  --navy:#0c3654; --navy-soft:#a9c4d8; --accent:#0369a1;
+  --amber:#f59e0b; --amber-ink:#92400e; --amber-bg:#fef3c7;
+  --ok:#047857; --ok-bg:#d9f5e8; --stop:#b42318; --stop-bg:#fde5e2;
+  --display:"Prompt","Sarabun",sans-serif; --body:"Sarabun",sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+body{margin:0; font-family:var(--body); font-size:12.9px; line-height:1.5; color:var(--ink); background:#fff}
+h1,h2,h3,p,ul,ol{margin:0} h1,h2,h3{font-family:var(--display); line-height:1.25}
+.page{width:210mm; height:297mm; overflow:hidden; display:flex; flex-direction:column}
+
+/* หัวกระดาษ */
+.head{background:var(--navy); color:#fff; padding:9mm 12mm 8mm; display:grid; grid-template-columns:minmax(0,1fr) auto; gap:10mm; align-items:center}
+.eyebrow{font-family:var(--display); font-size:11.5px; font-weight:500; color:var(--amber); letter-spacing:.02em}
+h1{font-size:25px; font-weight:700; margin-top:3px}
+.lead{color:var(--navy-soft); font-size:13.5px; margin-top:6px; max-width:36em}
+.url{margin-top:9px; font-size:12px; color:var(--navy-soft)}
+.url b{color:#fff; font-weight:500}
+.qr{background:#fff; color:var(--navy); border-radius:10px; padding:8px 8px 5px; text-align:center}
+.qr svg{display:block; width:31mm; height:31mm}
+.qr span{display:block; font-family:var(--display); font-weight:600; font-size:10.5px; margin-top:4px}
+
+.body{padding:7.5mm 12mm 0; display:flex; flex-direction:column; gap:7mm; flex:1}
+h2{font-size:15px; font-weight:600; color:var(--navy); display:flex; align-items:center; gap:8px; margin-bottom:3mm}
+h2::after{content:""; flex:1; height:1px; background:var(--line)}
+
+/* 3 ขั้นตอน */
+.steps{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:5mm}
+.step img{display:block; width:100%; border:1px solid var(--line); border-radius:6px}
+.step h3{font-size:13px; font-weight:600; display:flex; align-items:center; gap:7px; margin:2.5mm 0 1mm}
+.step h3 i{font-style:normal; flex:none; width:21px; height:21px; border-radius:50%; background:var(--accent); color:#fff; display:grid; place-items:center; font-size:12px}
+.step p{color:var(--muted); font-size:12px; line-height:1.45}
+.step p b{color:var(--ink)}
+
+/* 10 ระบบ */
+.sys{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); grid-auto-flow:column; grid-template-rows:repeat(5,auto); column-gap:7mm}
+.row{display:grid; grid-template-columns:22px minmax(0,1fr) auto; gap:8px; align-items:center; padding:1.55mm 0; border-bottom:1px solid var(--line)}
+.row .n{font-family:var(--display); font-weight:700; font-size:14px; color:var(--accent); text-align:right}
+.row b{font-family:var(--display); font-weight:500; font-size:12.4px; display:block; line-height:1.3}
+.row span.d{color:var(--muted); font-size:11px; display:block; line-height:1.35}
+.badge{font-family:var(--display); font-size:9.8px; font-weight:500; padding:2px 8px; border-radius:99px; white-space:nowrap}
+.ok{background:var(--ok-bg); color:var(--ok)} .wait{background:var(--amber-bg); color:var(--amber-ink)} .stop{background:var(--stop-bg); color:var(--stop)}
+.legend{font-size:10.5px; color:var(--muted); margin-top:2mm}
+
+/* แถวล่าง */
+.cols{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.25fr); gap:7mm}
+.cols ul,.cols ol{padding-left:16px; display:flex; flex-direction:column; gap:1.1mm; font-size:12px; line-height:1.45}
+.cols li b{font-weight:600}
+
+/* ท้ายกระดาษ */
+.foot{margin-top:auto; background:var(--soft); border-top:2px solid var(--navy); padding:4.5mm 12mm 5mm; display:grid; grid-template-columns:minmax(0,1fr) auto; gap:8mm; align-items:center}
+.foot h3{font-size:12.5px; font-weight:600; color:var(--navy)}
+.foot p{font-size:11.5px; color:var(--muted); line-height:1.5; margin-top:1mm}
+.foot p b{color:var(--ink); font-weight:500}
+.more{display:flex; align-items:center; gap:3.5mm; text-align:right}
+.more svg{display:block; width:19mm; height:19mm; background:#fff; padding:1.2mm; border:1px solid var(--line); border-radius:5px; box-sizing:content-box}
+.more b{font-family:var(--display); font-weight:600; font-size:11.5px; color:var(--navy); display:block}
+.more span{font-size:10.5px; color:var(--muted); display:block; line-height:1.4}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="head">
+    <div>
+      <p class="eyebrow">คู่มือฉบับย่อ · โรงเรียนบ้านทุ่งใหญ่ สพป.อุดรธานี เขต 3</p>
+      <h1>ระบบบริหารจัดการและรายงาน<br>ข้อมูลสารสนเทศโรงเรียน</h1>
+      <p class="lead">เอกสารสำคัญของโรงเรียนอยู่ในเว็บเดียว เปิดดูได้ทันทีจากมือถือหรือคอมพิวเตอร์ ไม่ต้องสมัครสมาชิก</p>
+      <p class="url">ลิงก์ระบบ: <b>sites.google.com/view/thungyai-data/full-page-embed</b></p>
+    </div>
+    <div class="qr"><div id="qr-sys"></div><span>สแกนเพื่อเปิดระบบ</span></div>
+  </header>
+
+  <div class="body">
+    <section>
+      <h2>เริ่มใช้ใน 3 ขั้นตอน</h2>
+      <div class="steps">
+        <div class="step"><img src="shots/home.jpg" alt=""><h3><i>1</i>เปิดเว็บไซต์ระบบ</h3><p>สแกน QR หรือพิมพ์ลิงก์ด้านบน หน้าแรกแสดงประกาศ ผู้บริหาร และข้อมูลพื้นฐานของโรงเรียน</p></div>
+        <div class="step"><img src="shots/grid.jpg" alt=""><h3><i>2</i>เลือกระบบที่ต้องการ</h3><p>กด<b>การ์ดระบบ</b>ที่หน้าแรก หรือกดชื่อระบบจาก<b>เมนูด้านซ้าย</b> ผลเหมือนกัน</p></div>
+        <div class="step"><img src="shots/m7.jpg" alt=""><h3><i>3</i>เปิดเอกสาร</h3><p>กดปุ่ม <b>เปิดดูเอกสาร / ลิงก์ไดร์ฟ</b> ใต้แฟ้ม เอกสารจะเปิดในแท็บใหม่</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>10 ระบบ มีอะไรบ้าง</h2>
+      <div class="sys">
+        <div class="row"><span class="n">1</span><div><b>ผลการเรียน ปพ.5 ปพ.6</b><span class="d">ปฐมวัย · ป.1–3 · ป.4–6 ภาคเรียนที่ 1/2569</span></div><span class="badge wait">กำลังเพิ่มเอกสาร</span></div>
+        <div class="row"><span class="n">2</span><div><b>รายงานโครงการ</b><span class="d">22 โครงการ ปีงบประมาณ 2569 แยก 4 กลุ่มงาน</span></div><span class="badge wait">กำลังเพิ่มเอกสาร</span></div>
+        <div class="row"><span class="n">3</span><div><b>งบประมาณและการเงิน</b><span class="d">รายงานการเงิน การเบิกจ่าย และพัสดุ</span></div><span class="badge stop">ปิดปรับปรุง</span></div>
+        <div class="row"><span class="n">4</span><div><b>แผนพัฒนาคุณภาพการศึกษา 5 ปี</b><span class="d">พ.ศ. 2566–2570 เล่มแผนฉบับสมบูรณ์</span></div><span class="badge ok">พร้อมใช้งาน</span></div>
+        <div class="row"><span class="n">5</span><div><b>หลักสูตรสถานศึกษา</b><span class="d">ปฐมวัย และขั้นพื้นฐาน ฉบับปรับปรุง 2569</span></div><span class="badge ok">พร้อมใช้งาน</span></div>
+        <div class="row"><span class="n">6</span><div><b>แผนปฏิบัติการประจำปี</b><span class="d">งบประมาณ 2570 · เปิดเป็นเว็บในแท็บใหม่</span></div><span class="badge ok">พร้อมใช้งาน</span></div>
+        <div class="row"><span class="n">7</span><div><b>รายงาน SAR ประจำปี 2568</b><span class="d">ระดับปฐมวัย และระดับขั้นพื้นฐาน</span></div><span class="badge ok">พร้อมใช้งาน</span></div>
+        <div class="row"><span class="n">8</span><div><b>แผนเผชิญเหตุของสถานศึกษา</b><span class="d">ความปลอดภัย MOE Safety Center 2569</span></div><span class="badge ok">พร้อมใช้งาน</span></div>
+        <div class="row"><span class="n">9</span><div><b>ผลการปฏิบัติที่เป็นเลิศ (Best Practice)</b><span class="d">ผลงานผู้บริหาร ครู และเกียรติบัตร 33 รายการ</span></div><span class="badge ok">พร้อมใช้งาน</span></div>
+        <div class="row"><span class="n">10</span><div><b>E-Portfolio แฟ้มสะสมผลงาน</b><span class="d">แฟ้มรายบุคคลของผู้บริหารและครู</span></div><span class="badge ok">พร้อมใช้งาน</span></div>
+      </div>
+      <p class="legend">สถานะ ณ วันที่ 11 พฤศจิกายน 2569 · “กำลังเพิ่มเอกสาร” หมายถึงมีหัวข้อในระบบแล้ว แต่ไฟล์ยังทยอยนำขึ้น</p>
+    </section>
+
+    <section class="cols">
+      <div>
+        <h2>ใช้บนมือถือ</h2>
+        <ol>
+          <li>กดปุ่ม <b>☰ (สามขีด)</b> มุมซ้ายบนเพื่อเปิดเมนู</li>
+          <li>กดชื่อระบบ เมนูจะปิดเองและพาไปหน้านั้น</li>
+          <li>เพิ่มเว็บไว้บนหน้าจอหลักเพื่อเข้าได้ในครั้งเดียว</li>
+        </ol>
+      </div>
+      <div>
+        <h2>ถ้าเปิดไม่ได้</h2>
+        <ul>
+          <li><b>ขึ้นว่า “คุณต้องมีสิทธิ์เข้าถึง”</b> กดขอสิทธิ์ หรือแจ้งผู้ดูแลระบบให้เปิดแชร์ไฟล์</li>
+          <li><b>หน้าจอว่างหรือโหลดช้า</b> รอสักครู่ แล้วรีเฟรช หรือเปิดด้วย Google Chrome</li>
+          <li><b>กดระบบ 6 แล้วไปอีกเว็บ</b> เป็นปกติ ปิดแท็บนั้นเพื่อกลับมาระบบหลัก</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+
+  <footer class="foot">
+    <div>
+      <h3>ติดต่อโรงเรียนบ้านทุ่งใหญ่</h3>
+      <p>231 หมู่ 10 ต.ทุ่งใหญ่ อ.ทุ่งฝน จ.อุดรธานี 41310 · โทร <b>042-261187</b><br>อีเมล <b>41030081@udonthani3.go.th</b> · Facebook <b>facebook.com/Banthungyaischool3</b></p>
+    </div>
+    <div class="more">
+      <div><b>คู่มือฉบับเต็ม</b><span>jirapongjoke.github.io/<br>thungyai-data-guide</span></div>
+      <div id="qr-guide"></div>
+    </div>
+  </footer>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script>
+function qr(id, url){ var q = qrcode(0, "M"); q.addData(url); q.make(); document.getElementById(id).innerHTML = q.createSvgTag({cellSize:4, margin:0, scalable:true}); }
+qr("qr-sys", "https://sites.google.com/view/thungyai-data/full-page-embed");
+qr("qr-guide", "https://jirapongjoke.github.io/thungyai-data-guide/");
+</script>
+</body>
+</html>
