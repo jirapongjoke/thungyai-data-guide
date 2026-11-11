@@ -1,0 +1,459 @@
+<title>คู่มือระบบสารสนเทศ ร.ร.บ้านทุ่งใหญ่</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: แถบนำทางติดบน + คอลัมน์เดียวอ่านจากบนลงล่าง; ภาพหน้าจอจริงวางคู่คำอธิบาย; สีและฟอนต์ยืมจากตัวระบบ (กรมท่า-ฟ้า-เหลืองอำพัน, Prompt/Sarabun) */
+:root{
+  --bg:#f4f7fa; --surface:#ffffff; --sunken:#e9eff5;
+  --ink:#10283b; --muted:#56697a; --line:#d3dde7;
+  --navy:#0c3654; --navy-ink:#eaf3fa; --navy-soft:#a9c4d8;
+  --accent:#0369a1; --accent-ink:#ffffff; --accent-soft:#e0f0fa;
+  --amber:#b45309; --amber-bg:#fef3c7; --amber-solid:#f59e0b;
+  --ok:#047857; --ok-bg:#d9f5e8; --stop:#b42318; --stop-bg:#fde5e2;
+  --shadow:0 1px 2px rgba(12,54,84,.06),0 8px 24px rgba(12,54,84,.08);
+  --display:"Prompt","Sarabun","Noto Sans Thai","Leelawadee UI",Tahoma,sans-serif;
+  --body:"Sarabun","Noto Sans Thai","Leelawadee UI",Tahoma,sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0a1722; --surface:#12222f; --sunken:#0d1c28;
+  --ink:#e6eef5; --muted:#9bb0c1; --line:#25394a;
+  --navy:#0a2a41; --navy-ink:#eaf3fa; --navy-soft:#9dbbd0;
+  --accent:#4fb3e8; --accent-ink:#06202f; --accent-soft:#13354b;
+  --amber:#fbbf24; --amber-bg:#3a2c0b; --amber-solid:#f59e0b;
+  --ok:#4ade9c; --ok-bg:#0f3327; --stop:#ff9a8f; --stop-bg:#3d1714;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);
+  color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#0a1722; --surface:#12222f; --sunken:#0d1c28;
+  --ink:#e6eef5; --muted:#9bb0c1; --line:#25394a;
+  --navy:#0a2a41; --navy-ink:#eaf3fa; --navy-soft:#9dbbd0;
+  --accent:#4fb3e8; --accent-ink:#06202f; --accent-soft:#13354b;
+  --amber:#fbbf24; --amber-bg:#3a2c0b; --amber-solid:#f59e0b;
+  --ok:#4ade9c; --ok-bg:#0f3327; --stop:#ff9a8f; --stop-bg:#3d1714;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);
+  color-scheme:dark }
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth; scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--bg); color:var(--ink); font-family:var(--body); font-size:17px; line-height:1.7}
+body::before{content:""; position:fixed; inset:0 0 auto; height:env(safe-area-inset-top,0px); z-index:10; background:var(--navy)}
+h1,h2,h3,h4{font-family:var(--display); line-height:1.3; margin:0; text-wrap:balance}
+p{margin:0}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--amber-solid); outline-offset:2px; border-radius:6px}
+.wrap{max-width:1040px; margin-inline:auto; padding-left:max(16px,env(safe-area-inset-left,0px)); padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* แถบนำทาง */
+.top{position:sticky; top:env(safe-area-inset-top,0px); z-index:9; background:var(--navy); color:var(--navy-ink)}
+.top .wrap{display:flex; align-items:center; gap:16px; min-height:56px}
+.brand{font-family:var(--display); font-weight:600; font-size:15px; white-space:nowrap}
+.top nav{display:flex; gap:4px; overflow-x:auto; min-width:0; flex:1; scrollbar-width:none}
+.top nav::-webkit-scrollbar{display:none}
+.top nav a{color:var(--navy-soft); text-decoration:none; font-family:var(--display); font-size:14px; padding:6px 10px; border-radius:8px; white-space:nowrap}
+.top nav a:hover{color:var(--navy-ink); background:rgba(255,255,255,.1)}
+@media (max-width:640px){.brand{display:none}}
+
+/* ปุ่ม */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; font-family:var(--display); font-weight:600; font-size:16px; padding:12px 20px; border-radius:12px; border:1.5px solid transparent; text-decoration:none; cursor:pointer; min-height:48px}
+.btn-main{background:var(--amber-solid); color:#231503}
+.btn-main:hover{filter:brightness(1.07)}
+.btn-ghost{background:transparent; color:var(--navy-ink); border-color:rgba(255,255,255,.45)}
+.btn-ghost:hover{background:rgba(255,255,255,.1)}
+.btn-line{background:var(--surface); color:var(--accent); border-color:var(--line)}
+
+/* ส่วนเปิด */
+.hero{background:var(--navy); color:var(--navy-ink)}
+.hero .wrap{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:32px; align-items:center; padding-block:40px 48px}
+.eyebrow{font-family:var(--display); font-size:14px; letter-spacing:.02em; color:var(--amber-solid); font-weight:500}
+.hero h1{font-size:clamp(28px,5vw,44px); font-weight:700; margin-top:6px}
+.hero .lead{color:var(--navy-soft); font-size:19px; max-width:34em; margin-top:12px}
+.cta{display:flex; flex-wrap:wrap; gap:12px; margin-top:24px}
+.urlbox{margin-top:16px; font-size:15px; color:var(--navy-soft); overflow-wrap:anywhere}
+.urlbox b{color:var(--navy-ink); font-weight:500; user-select:all}
+.qr{background:#fff; color:#0c3654; border-radius:16px; padding:14px 14px 10px; text-align:center; width:204px}
+.qr svg{display:block; width:176px; height:176px}
+.qr span{display:block; font-family:var(--display); font-size:13px; font-weight:600; margin-top:6px}
+@media (max-width:760px){.hero .wrap{grid-template-columns:1fr} .qr{justify-self:start}}
+
+/* ส่วนทั่วไป */
+section{padding-block:48px}
+section + section{border-top:1px solid var(--line)}
+.sec-head{max-width:40em; margin-bottom:24px}
+.sec-head h2{font-size:clamp(23px,3.4vw,30px); font-weight:600}
+.sec-head p{color:var(--muted); margin-top:6px}
+
+/* จุดเด่น */
+.facts{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:20px 32px; padding:0; margin:0; list-style:none}
+.facts b{display:block; font-family:var(--display); font-weight:600; font-size:18px}
+.facts span{color:var(--muted); font-size:16px}
+
+/* ขั้นตอน */
+.steps{display:flex; flex-direction:column; gap:40px; padding:0; margin:0; list-style:none; counter-reset:s}
+.step{display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr); gap:28px; align-items:center; counter-increment:s}
+.step h3{font-size:21px; font-weight:600; display:flex; gap:12px; align-items:baseline}
+.step h3::before{content:counter(s); flex:none; width:36px; height:36px; border-radius:50%; background:var(--accent); color:var(--accent-ink); display:inline-grid; place-items:center; font-size:17px; align-self:center}
+.step p{margin-top:10px; color:var(--muted)}
+.step p b{color:var(--ink)}
+@media (max-width:760px){.step{grid-template-columns:1fr; gap:14px}}
+
+/* ภาพหน้าจอ */
+figure{margin:0}
+.shot{position:relative; border:1px solid var(--line); border-radius:12px; overflow:hidden; background:var(--surface); box-shadow:var(--shadow)}
+.shot img{display:block; width:100%; height:auto}
+figcaption{font-size:15px; color:var(--muted); margin-top:8px}
+.pin{position:absolute; width:30px; height:30px; margin:-15px 0 0 -15px; border-radius:50%; background:var(--amber-solid); color:#231503; font-family:var(--display); font-weight:700; font-size:15px; display:grid; place-items:center; border:2px solid #fff; box-shadow:0 2px 8px rgba(0,0,0,.35)}
+.legend{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px 28px; padding:0; margin:20px 0 0; list-style:none}
+.legend li{display:grid; grid-template-columns:30px minmax(0,1fr); gap:10px; font-size:16px; line-height:1.55}
+.legend i{font-style:normal; width:28px; height:28px; border-radius:50%; background:var(--amber-solid); color:#231503; font-family:var(--display); font-weight:700; font-size:14px; display:grid; place-items:center}
+.legend b{font-family:var(--display); font-weight:600; display:block}
+.legend span{color:var(--muted)}
+
+/* ค้นหาระบบ */
+.finder{display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-bottom:8px}
+.finder input{flex:1 1 260px; min-width:0; font:inherit; font-size:17px; padding:12px 16px; border-radius:12px; border:1.5px solid var(--line); background:var(--surface); color:var(--ink)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font-family:var(--display); font-size:14px; padding:6px 12px; border-radius:99px; border:1px solid var(--line); background:var(--surface); color:var(--ink); cursor:pointer}
+.chip:hover{border-color:var(--accent); color:var(--accent)}
+.count{font-size:15px; color:var(--muted); margin:12px 0}
+.sys{display:flex; flex-direction:column; border-top:1px solid var(--line)}
+.sys-row{display:grid; grid-template-columns:44px minmax(0,1fr) auto; gap:4px 14px; padding:16px 0; border-bottom:1px solid var(--line); align-items:start}
+.num{font-family:var(--display); font-weight:700; font-size:22px; color:var(--accent); font-variant-numeric:tabular-nums; line-height:1.3}
+.sys-row h3{font-size:18px; font-weight:600}
+.sys-row p{color:var(--muted); font-size:16px; line-height:1.55; margin-top:2px}
+.sys-row ul{margin:6px 0 0; padding-left:18px; font-size:16px; line-height:1.6}
+.badge{font-family:var(--display); font-size:13px; font-weight:500; padding:3px 10px; border-radius:99px; white-space:nowrap; margin-top:3px}
+.b-ok{background:var(--ok-bg); color:var(--ok)}
+.b-wait{background:var(--amber-bg); color:var(--amber)}
+.b-stop{background:var(--stop-bg); color:var(--stop)}
+@media (max-width:560px){.sys-row{grid-template-columns:34px minmax(0,1fr)} .badge{grid-column:2; justify-self:start}}
+.none{padding:20px 0; color:var(--muted)}
+
+/* บทบาท */
+.roles{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:28px 40px}
+@media (max-width:640px){.roles{grid-template-columns:1fr}}
+.roles h3{font-size:18px; font-weight:600; padding-bottom:6px; border-bottom:2px solid var(--amber-solid); display:inline-block}
+.roles ul{margin:10px 0 0; padding-left:18px; font-size:16px; line-height:1.6}
+
+/* สองคอลัมน์ ภาพ+คำอธิบาย */
+.duo{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:32px; align-items:start}
+.duo.phone{grid-template-columns:minmax(0,260px) minmax(0,1fr); align-items:center}
+@media (max-width:760px){.duo,.duo.phone{grid-template-columns:1fr} .duo.phone .shot{max-width:260px}}
+.plain{margin:0; padding-left:20px; display:flex; flex-direction:column; gap:8px}
+.note{background:var(--amber-bg); border-radius:12px; padding:14px 18px; font-size:16px; line-height:1.6; margin-top:16px}
+.note b{font-family:var(--display); font-weight:600; color:var(--amber)}
+.gallery{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:24px}
+
+/* ถาม-ตอบ */
+details{border-bottom:1px solid var(--line)}
+details:first-of-type{border-top:1px solid var(--line)}
+summary{font-family:var(--display); font-weight:500; font-size:17px; padding:14px 28px 14px 0; cursor:pointer; list-style:none; position:relative}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+"; position:absolute; right:4px; top:10px; font-size:24px; color:var(--accent); font-weight:400}
+details[open] summary::after{content:"–"}
+details p{padding:0 0 16px; color:var(--muted); max-width:44em}
+
+/* ท้ายหน้า */
+.foot{background:var(--navy); color:var(--navy-ink); border-top:0}
+.foot .wrap{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:24px; align-items:center}
+.foot h2{font-size:24px; font-weight:600}
+.foot dl{display:grid; grid-template-columns:auto minmax(0,1fr); gap:4px 16px; margin:14px 0 0; font-size:16px}
+.foot dt{color:var(--navy-soft)}
+.foot dd{margin:0; overflow-wrap:anywhere; user-select:all}
+.foot a{color:var(--navy-ink)}
+@media (max-width:640px){.foot .wrap{grid-template-columns:1fr}}
+.toast{position:fixed; left:50%; bottom:calc(20px + env(safe-area-inset-bottom,0px)); transform:translateX(-50%); background:var(--ink); color:var(--bg); font-family:var(--display); font-size:15px; padding:10px 18px; border-radius:99px; z-index:20}
+</style>
+<!--BODY-->
+<header class="top">
+  <div class="wrap">
+    <span class="brand">คู่มือการใช้งาน</span>
+    <nav aria-label="สารบัญ">
+      <a href="#start">เริ่มใช้</a>
+      <a href="#screen">รู้จักหน้าจอ</a>
+      <a href="#systems">10 ระบบ</a>
+      <a href="#roles">ใครใช้ทำอะไร</a>
+      <a href="#mobile">มือถือ</a>
+      <a href="#awards">เกียรติบัตร</a>
+      <a href="#admin">ผู้ดูแล</a>
+      <a href="#faq">ถาม-ตอบ</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">โรงเรียนบ้านทุ่งใหญ่ · สพป.อุดรธานี เขต 3</p>
+      <h1>ระบบบริหารจัดการและรายงานข้อมูลสารสนเทศโรงเรียน</h1>
+      <p class="lead">เอกสารสำคัญของโรงเรียนอยู่ในเว็บเดียว เปิดดูได้ทันทีจากมือถือหรือคอมพิวเตอร์ ไม่ต้องสมัครสมาชิก</p>
+      <div class="cta">
+        <a class="btn btn-main" href="https://sites.google.com/view/thungyai-data/full-page-embed" target="_blank" rel="noopener">เปิดระบบ</a>
+        <button class="btn btn-ghost" id="copy-link" type="button">คัดลอกลิงก์</button>
+      </div>
+      <p class="urlbox">ลิงก์ระบบ: <b id="site-url">https://sites.google.com/view/thungyai-data/full-page-embed</b></p>
+    </div>
+    <div class="qr" aria-label="คิวอาร์โค้ดสำหรับเปิดระบบ">
+      <div id="qr"></div>
+      <span>สแกนเพื่อเปิดระบบ</span>
+    </div>
+  </div>
+</div>
+
+<main>
+<section>
+  <div class="wrap">
+    <ul class="facts">
+      <li><b>10 ระบบในหน้าเดียว</b><span>ผลการเรียน โครงการ แผน หลักสูตร SAR ความปลอดภัย ผลงาน และ E-Portfolio</span></li>
+      <li><b>ไม่ต้องเข้าสู่ระบบ</b><span>เปิดลิงก์หรือสแกน QR แล้วใช้งานได้เลย</span></li>
+      <li><b>เอกสารตัวจริง</b><span>ทุกปุ่มพาไปยังไฟล์ใน Google Drive หรือเว็บไซต์ต้นทาง</span></li>
+      <li><b>ใช้ได้ทุกอุปกรณ์</b><span>หน้าจอปรับตามมือถือ แท็บเล็ต และคอมพิวเตอร์</span></li>
+    </ul>
+  </div>
+</section>
+
+<section id="start">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>เริ่มใช้ใน 3 ขั้นตอน</h2>
+      <p>ใช้เวลาไม่ถึงหนึ่งนาที จากเปิดเว็บถึงเปิดเอกสาร</p>
+    </div>
+    <ol class="steps">
+      <li class="step">
+        <div>
+          <h3>เปิดเว็บไซต์ระบบ</h3>
+          <p>กดปุ่ม <b>เปิดระบบ</b> ด้านบน หรือสแกน QR ด้วยกล้องมือถือ หน้าแรกจะแสดงประกาศ ผู้บริหาร และข้อมูลพื้นฐานของโรงเรียน</p>
+        </div>
+        <figure class="shot"><img src="{{img:home}}" alt="หน้าแรกของระบบ มีเมนูด้านซ้ายและแถบประกาศด้านบน" width="1100" height="688"></figure>
+      </li>
+      <li class="step">
+        <div>
+          <h3>เลือกระบบที่ต้องการ</h3>
+          <p>เลื่อนลงมาที่ <b>ศูนย์รวมระบบสารสนเทศ</b> แล้วกดการ์ดของระบบ หรือกดชื่อระบบจาก <b>เมนูด้านซ้าย</b> ก็ได้ ผลเหมือนกัน</p>
+        </div>
+        <figure class="shot"><img src="{{img:grid}}" alt="การ์ดระบบทั้ง 10 ระบบบนหน้าแรก" width="1100" height="688" loading="lazy"></figure>
+      </li>
+      <li class="step">
+        <div>
+          <h3>เปิดเอกสาร</h3>
+          <p>ในหน้าระบบจะเห็นแฟ้มย่อยพร้อมภาพปก กดปุ่ม <b>เปิดดูเอกสาร / ลิงก์ไดร์ฟ</b> ใต้แฟ้ม เอกสารจะเปิดในแท็บใหม่ กด <b>หน้าแรก</b> เพื่อย้อนกลับ</p>
+        </div>
+        <figure class="shot"><img src="{{img:m7}}" alt="หน้าระบบรายงาน SAR มีแฟ้มย่อย 2 เล่มพร้อมปุ่มเปิดเอกสาร" width="1100" height="688" loading="lazy"></figure>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section id="screen">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>รู้จักหน้าจอ</h2>
+      <p>หน้าแรกแบ่งเป็น 4 ส่วนหลัก ตามหมายเลขในภาพ</p>
+    </div>
+    <figure>
+      <div class="shot">
+        <img src="{{img:home}}" alt="หน้าแรกของระบบพร้อมหมายเลขกำกับส่วนต่าง ๆ" width="1100" height="688" loading="lazy">
+        <span class="pin" style="left:11%;top:42%">1</span>
+        <span class="pin" style="left:60%;top:13%">2</span>
+        <span class="pin" style="left:60%;top:46%">3</span>
+        <span class="pin" style="left:93%;top:4%">4</span>
+      </div>
+      <ul class="legend">
+        <li><i>1</i><div><b>เมนูหลัก</b><span>กดหน้าแรกหรือระบบที่ 1–10 ได้ตลอดเวลา</span></div></li>
+        <li><i>2</i><div><b>แถบประกาศ</b><span>ข่าวและข้อความล่าสุดจากโรงเรียน</span></div></li>
+        <li><i>3</i><div><b>ข้อมูลโรงเรียน</b><span>ผู้บริหาร ที่อยู่ เบอร์โทร ประวัติ และจำนวนนักเรียน</span></div></li>
+        <li><i>4</i><div><b>เพจโรงเรียน</b><span>ทางลัดไปเพจ Facebook ของโรงเรียน</span></div></li>
+      </ul>
+    </figure>
+    <p style="margin-top:20px;color:var(--muted)">เลื่อนลงต่อจะพบการ์ดทั้ง 10 ระบบ ภาพกิจกรรมของโรงเรียน และช่องทางติดต่อ</p>
+  </div>
+</section>
+
+<section id="systems">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>10 ระบบ มีอะไรบ้าง</h2>
+      <p>พิมพ์สิ่งที่กำลังหา แล้วดูว่าต้องเข้าระบบหมายเลขใด</p>
+    </div>
+    <div class="finder">
+      <input id="q" type="search" placeholder="เช่น SAR, หลักสูตร, เกียรติบัตร, ปพ.5" aria-label="ค้นหาระบบ">
+      <div class="chips" id="chips"></div>
+    </div>
+    <p class="count" id="count"></p>
+    <div class="sys" id="sys"></div>
+    <p style="margin-top:14px;font-size:15px;color:var(--muted)">สถานะ ณ วันที่ 11 พฤศจิกายน 2569 · “กำลังเพิ่มเอกสาร” หมายถึงมีหัวข้อในระบบแล้ว แต่ไฟล์ยังทยอยนำขึ้น</p>
+  </div>
+</section>
+
+<section id="roles">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>ใครใช้ทำอะไร</h2>
+      <p>ตัวอย่างการใช้งานที่พบบ่อยของแต่ละกลุ่ม</p>
+    </div>
+    <div class="roles">
+      <div><h3>ผู้บริหาร</h3><ul>
+        <li>ติดตามแผนปฏิบัติการและโครงการ (ระบบ 2, 6)</li>
+        <li>เปิด SAR และแผนพัฒนา 5 ปี ประกอบการประชุม (ระบบ 4, 7)</li>
+        <li>ดูผลงานและรางวัลของบุคลากร (ระบบ 9)</li></ul></div>
+      <div><h3>ครูและบุคลากร</h3><ul>
+        <li>เปิดหลักสูตรสถานศึกษาเพื่อวางแผนการสอน (ระบบ 5)</li>
+        <li>ส่งและตรวจสอบ ปพ.5 ปพ.6 (ระบบ 1)</li>
+        <li>เผยแพร่ E-Portfolio ของตนเอง (ระบบ 10)</li></ul></div>
+      <div><h3>กรรมการประเมินและผู้นิเทศ</h3><ul>
+        <li>ตรวจเอกสารหลักฐานได้จากลิงก์เดียว ไม่ต้องขอไฟล์แยก</li>
+        <li>เปิด SAR หลักสูตร และแผนเผชิญเหตุ (ระบบ 5, 7, 8)</li>
+        <li>ดูแฟ้มสะสมผลงานครูรายบุคคล (ระบบ 10)</li></ul></div>
+      <div><h3>ผู้ปกครองและชุมชน</h3><ul>
+        <li>อ่านข้อมูลพื้นฐานและประวัติโรงเรียนที่หน้าแรก</li>
+        <li>ชมภาพกิจกรรมและรางวัลของโรงเรียน (ระบบ 9)</li>
+        <li>ติดต่อโรงเรียนผ่านเบอร์โทรหรือเพจ Facebook</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="mobile">
+  <div class="wrap">
+    <div class="duo phone">
+      <figure class="shot"><img src="{{img:mob_menu}}" alt="เมนูหลักบนมือถือหลังกดปุ่มสามขีด" width="400" height="720" loading="lazy"></figure>
+      <div>
+        <div class="sec-head">
+          <h2>ใช้บนมือถือ</h2>
+          <p>บนจอเล็ก เมนูด้านซ้ายจะถูกพับเก็บไว้</p>
+        </div>
+        <ol class="plain">
+          <li>กดปุ่ม <b>☰ (สามขีด)</b> มุมซ้ายบนเพื่อเปิดเมนู</li>
+          <li>กดชื่อระบบที่ต้องการ เมนูจะปิดเองและพาไปหน้านั้น</li>
+          <li>กด <b>✕</b> หรือแตะพื้นที่ว่างด้านขวาเพื่อปิดเมนูโดยไม่เลือก</li>
+        </ol>
+        <p class="note"><b>เคล็ดลับ</b> เพิ่มเว็บไว้บนหน้าจอหลัก: เปิดเมนูของเบราว์เซอร์ แล้วเลือก “เพิ่มลงในหน้าจอหลัก” ครั้งต่อไปกดไอคอนเข้าได้ทันที</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="awards">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>คลังเกียรติบัตรและ E-Portfolio</h2>
+      <p>สองระบบที่มีผู้เข้าชมบ่อย และมีวิธีดูต่างจากระบบอื่นเล็กน้อย</p>
+    </div>
+    <div class="gallery">
+      <figure>
+        <div class="shot"><img src="{{img:m9}}" alt="คลังเกียรติบัตรในระบบที่ 9 พร้อมแท็บกรองตามระดับรางวัล" width="1100" height="688" loading="lazy"></div>
+        <figcaption><b>ระบบ 9 คลังเกียรติบัตร 33 รายการ</b> กดแท็บเพื่อกรองตามระดับ: ระดับชาติ, ระดับภาค/เขตตรวจราชการที่ 10, ระดับเขตพื้นที่การศึกษา แล้วกด “ดูเกียรติบัตรฉบับเต็ม”</figcaption>
+      </figure>
+      <figure>
+        <div class="shot"><img src="{{img:m10}}" alt="ระบบ E-Portfolio แสดงรายชื่อผู้บริหารและครูพร้อมปุ่มเปิดแฟ้ม" width="1100" height="688" loading="lazy"></div>
+        <figcaption><b>ระบบ 10 E-Portfolio</b> เลือกชื่อผู้บริหารหรือครู แล้วกดปุ่มใต้ชื่อ แฟ้มสะสมผลงานของท่านนั้นจะเปิดเป็นเว็บไซต์แยกในแท็บใหม่</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section id="admin">
+  <div class="wrap">
+    <div class="duo">
+      <div>
+        <div class="sec-head">
+          <h2>สำหรับผู้ดูแลระบบ</h2>
+          <p>ปุ่มรูปดินสอที่มุมการ์ดใช้เปลี่ยนลิงก์ปลายทางของแฟ้ม</p>
+        </div>
+        <ol class="plain">
+          <li>กด <b>ปุ่มดินสอ</b> ที่มุมขวาบนของการ์ดระบบหรือแฟ้มย่อย</li>
+          <li>วางลิงก์ Google Drive, Google Sheets หรือ Canva ลงในช่อง URL</li>
+          <li>กด <b>บันทึกข้อมูล</b> ปุ่มเปิดเอกสารของแฟ้มนั้นจะชี้ไปลิงก์ใหม่</li>
+        </ol>
+        <p class="note"><b>ข้อควรรู้</b> ลิงก์ที่แก้ด้วยปุ่มดินสอจะถูกจำไว้เฉพาะในเบราว์เซอร์ของเครื่องที่แก้เท่านั้น ผู้ใช้คนอื่นยังเห็นลิงก์เดิม หากต้องการเปลี่ยนให้ทุกคนเห็น ผู้ดูแลต้องแก้ลิงก์ในโค้ดที่ฝังไว้ใน Google Sites แล้วกดเผยแพร่ใหม่ และตั้งค่าแชร์ไฟล์ใน Drive เป็น “ทุกคนที่มีลิงก์ดูได้”</p>
+      </div>
+      <figure class="shot"><img src="{{img:edit}}" alt="หน้าต่างจัดการลิงก์ Google Drive มีช่องชื่อรายการ ช่อง URL และปุ่มบันทึกข้อมูล" width="1100" height="688" loading="lazy"></figure>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head"><h2>ถาม-ตอบ</h2></div>
+    <details><summary>ต้องสมัครสมาชิกหรือเข้าสู่ระบบหรือไม่</summary><p>ไม่ต้อง เปิดลิงก์แล้วใช้งานได้ทันที ยกเว้นเอกสารบางไฟล์ใน Google Drive ที่เจ้าของไฟล์จำกัดสิทธิ์ไว้</p></details>
+    <details><summary>กดเปิดเอกสารแล้วขึ้นว่า “คุณต้องมีสิทธิ์เข้าถึง”</summary><p>ไฟล์นั้นยังไม่ได้เปิดแชร์สาธารณะ กด “ขอสิทธิ์เข้าถึง” ในหน้า Google Drive หรือแจ้งผู้ดูแลระบบของโรงเรียนให้เปิดแชร์</p></details>
+    <details><summary>กดแล้วไปหน้าแรกของ Google Drive ไม่เจอเอกสาร</summary><p>แฟ้มนั้นอยู่ในสถานะ “กำลังเพิ่มเอกสาร” ยังไม่ได้เชื่อมไฟล์ ดูสถานะของแต่ละระบบได้ที่หัวข้อ 10 ระบบ</p></details>
+    <details><summary>ระบบ 3 งบประมาณและการเงิน เข้าไม่ได้</summary><p>ระบบนี้ปิดปรับปรุงฐานข้อมูลอยู่ หน้าจอจะแจ้งว่าอยู่ระหว่างการปรับปรุง กด “กลับสู่หน้าแรก” เพื่อใช้ระบบอื่นต่อได้ตามปกติ</p></details>
+    <details><summary>กดระบบ 6 แล้วเด้งไปอีกเว็บหนึ่ง</summary><p>เป็นการทำงานปกติ แผนปฏิบัติการประจำปีงบประมาณ 2570 เป็นเว็บไซต์ออนไลน์แยกต่างหาก ระบบจึงเปิดให้ในแท็บใหม่ ปิดแท็บนั้นเพื่อกลับมาที่ระบบหลัก</p></details>
+    <details><summary>เปิดเว็บแล้วหน้าจอว่างหรือโหลดช้า</summary><p>รอสักครู่ให้เนื้อหาโหลดครบ หากยังว่างให้รีเฟรชหน้า ตรวจสัญญาณอินเทอร์เน็ต หรือลองเปิดด้วย Google Chrome</p></details>
+    <details><summary>ภาพปกหรือเกียรติบัตรไม่ขึ้น</summary><p>ภาพดึงมาจาก Google Drive โดยตรง บางเครือข่ายอาจโหลดช้า กดปุ่มเปิดเอกสารเพื่อดูไฟล์ฉบับเต็มได้แม้ภาพตัวอย่างไม่แสดง</p></details>
+  </div>
+</section>
+
+<section class="foot">
+  <div class="wrap">
+    <div>
+      <h2>พร้อมแล้ว ลองเปิดใช้ได้เลย</h2>
+      <dl>
+        <dt>โทรศัพท์</dt><dd>042-261187</dd>
+        <dt>อีเมล</dt><dd>41030081@udonthani3.go.th</dd>
+        <dt>ที่อยู่</dt><dd>231 หมู่ 10 ต.ทุ่งใหญ่ อ.ทุ่งฝน จ.อุดรธานี 41310</dd>
+        <dt>Facebook</dt><dd><a href="https://www.facebook.com/Banthungyaischool3" target="_blank" rel="noopener">เพจโรงเรียนบ้านทุ่งใหญ่</a></dd>
+      </dl>
+    </div>
+    <a class="btn btn-main" href="https://sites.google.com/view/thungyai-data/full-page-embed" target="_blank" rel="noopener">เปิดระบบ</a>
+  </div>
+</section>
+</main>
+<div class="toast" id="toast" hidden></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script>
+(function(){
+  var URL_ = "https://sites.google.com/view/thungyai-data/full-page-embed";
+
+  // QR
+  try {
+    var qr = qrcode(0, "M"); qr.addData(URL_); qr.make();
+    document.getElementById("qr").innerHTML = qr.createSvgTag({cellSize:4, margin:0, scalable:true});
+  } catch(e) { document.querySelector(".qr").hidden = true; }
+
+  // คัดลอกลิงก์
+  var toast = document.getElementById("toast"), tt;
+  function say(t){ toast.textContent = t; toast.hidden = false; clearTimeout(tt); tt = setTimeout(function(){ toast.hidden = true; }, 2200); }
+  function selectUrl(){ var r = document.createRange(); r.selectNodeContents(document.getElementById("site-url")); var s = getSelection(); s.removeAllRanges(); s.addRange(r); say("เลือกลิงก์ให้แล้ว กดคัดลอกได้เลย"); }
+  document.getElementById("copy-link").addEventListener("click", function(){
+    try { navigator.clipboard.writeText(URL_).then(function(){ say("คัดลอกลิงก์แล้ว"); }, selectUrl); } catch(e){ selectUrl(); }
+  });
+
+  // 10 ระบบ
+  var OK="ok", WAIT="wait", STOP="stop";
+  var LABEL = {ok:"พร้อมใช้งาน", wait:"กำลังเพิ่มเอกสาร", stop:"ปิดปรับปรุง"};
+  var SYS = [
+    {n:1, t:"ระบบผลการเรียน ปพ.5 ปพ.6", d:"ภาคเรียนที่ 1 ปีการศึกษา 2569", s:WAIT, items:["ระดับปฐมวัย (อนุบาล 2–3)","ชั้น ป.1–3","ชั้น ป.4–6"], k:"ปพ5 ปพ6 เกรด คะแนน ผลการเรียน พัฒนาการ อนุบาล ประถม"},
+    {n:2, t:"ระบบรายงานโครงการ", d:"ปีงบประมาณ 2569 รวม 22 โครงการ แยกตาม 4 กลุ่มงาน", s:WAIT, items:["วิชาการ 7 โครงการ","งบประมาณ 5 โครงการ","บุคคล 4 โครงการ","บริหารทั่วไป 6 โครงการ"], k:"โครงการ รายงานผล ฝ่าย กลุ่มงาน"},
+    {n:3, t:"ระบบงบประมาณและการเงิน", d:"รายงานการเงิน การเบิกจ่าย และพัสดุ", s:STOP, items:[], k:"การเงิน เบิกจ่าย พัสดุ บัญชี งบ"},
+    {n:4, t:"แผนพัฒนาคุณภาพการศึกษา 5 ปี", d:"พ.ศ. 2566–2570", s:OK, items:["เล่มแผนพัฒนาฉบับสมบูรณ์","รายงานทบทวนแผนระยะครึ่งแผน (กำลังเพิ่ม)"], k:"แผนพัฒนา วิสัยทัศน์ พันธกิจ แผน 5 ปี"},
+    {n:5, t:"หลักสูตรสถานศึกษา", d:"ระดับปฐมวัยและขั้นพื้นฐาน", s:OK, items:["หลักสูตรปฐมวัย พ.ศ. 2569","หลักสูตรขั้นพื้นฐาน ฉบับปรับปรุง 2569 (8 กลุ่มสาระ)"], k:"หลักสูตร โครงสร้างเวลาเรียน คำอธิบายรายวิชา กลุ่มสาระ"},
+    {n:6, t:"แผนปฏิบัติการประจำปี", d:"งบประมาณ พ.ศ. 2570 · กดแล้วเปิดเว็บแผนในแท็บใหม่ทันที", s:OK, items:["แผนงาน โครงการ และงบประมาณจัดสรร","ปฏิทินปฏิบัติงานโรงเรียน"], k:"แผนปฏิบัติการ ปฏิทิน กำหนดการ 2570 action plan"},
+    {n:7, t:"รายงาน SAR ประจำปี 2568", d:"รายงานการประเมินตนเองของสถานศึกษา", s:OK, items:["SAR ระดับปฐมวัย","SAR ระดับขั้นพื้นฐาน"], k:"sar ประเมินตนเอง ประกันคุณภาพ มาตรฐาน"},
+    {n:8, t:"แผนเผชิญเหตุของสถานศึกษา", d:"ความปลอดภัย MOE Safety Center ปีการศึกษา 2569", s:OK, items:["แผนปฏิบัติการด้านความปลอดภัยและเฝ้าระวังเหตุความรุนแรง","คำสั่งแต่งตั้งคณะกรรมการความปลอดภัย"], k:"ความปลอดภัย moe safety แผนเผชิญเหตุ ฉุกเฉิน คำสั่ง"},
+    {n:9, t:"ผลการปฏิบัติที่เป็นเลิศ (Best Practice)", d:"ผลงานสถานศึกษา ผู้บริหาร ครู และคลังเกียรติบัตร", s:OK, items:["Best Practice ผู้บริหารและครู","คลังเกียรติบัตร 33 รายการ กรองตามระดับรางวัลได้"], k:"best practice รางวัล เกียรติบัตร ผลงาน ครูดี obec"},
+    {n:10, t:"ระบบ E-Portfolio แฟ้มสะสมผลงาน", d:"แฟ้มสะสมผลงานอิเล็กทรอนิกส์ของผู้บริหารและครู", s:OK, items:["แฟ้มรายบุคคล เปิดเป็นเว็บไซต์ของแต่ละท่าน"], k:"e-portfolio portfolio แฟ้มสะสมผลงาน ครู ผู้บริหาร eportfolio"}
+  ];
+  var box = document.getElementById("sys"), q = document.getElementById("q"), count = document.getElementById("count");
+  function esc(s){ return s.replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+  function norm(s){ return s.toLowerCase().replace(/[\s.\-]/g, ""); }
+  function draw(){
+    var term = norm(q.value), list = SYS.filter(function(x){ return !term || norm(x.t + x.d + x.items.join("") + x.k).indexOf(term) > -1; });
+    box.innerHTML = list.map(function(x){
+      return '<div class="sys-row"><div class="num">' + x.n + '</div><div><h3>' + esc(x.t) + '</h3><p>' + esc(x.d) + '</p>' +
+        (x.items.length ? '<ul>' + x.items.map(function(i){ return '<li>' + esc(i) + '</li>'; }).join("") + '</ul>' : '') +
+        '</div><span class="badge b-' + x.s + '">' + LABEL[x.s] + '</span></div>';
+    }).join("") || '<p class="none">ไม่พบระบบที่ตรงกับคำค้น ลองใช้คำที่สั้นลง หรือกดคำแนะนำด้านบน</p>';
+    count.textContent = term ? "พบ " + list.length + " จาก 10 ระบบ" : "แสดงทั้ง 10 ระบบ";
+  }
+  q.addEventListener("input", draw);
+  var chips = document.getElementById("chips");
+  ["SAR","หลักสูตร","เกียรติบัตร","ปพ.5","ความปลอดภัย","ทั้งหมด"].forEach(function(c){
+    var b = document.createElement("button"); b.type = "button"; b.className = "chip"; b.textContent = c;
+    b.addEventListener("click", function(){ q.value = c === "ทั้งหมด" ? "" : c; draw(); });
+    chips.appendChild(b);
+  });
+  draw();
+})();
+</script>
